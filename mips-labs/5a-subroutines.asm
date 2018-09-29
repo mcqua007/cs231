@@ -88,7 +88,7 @@ exitProgram:
 
   add $v1, $t2, $0 # storing factorial in $v1 form temp
 
- jr $ra
+  jr $ra
 # Jump out of Program
 #------------------------
   error1:
