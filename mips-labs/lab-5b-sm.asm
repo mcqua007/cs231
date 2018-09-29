@@ -67,9 +67,8 @@ loop1: beq $s1, $s0, exitLoop1  # loop equal to counter
 
     sw $v0, 0($s4)		#move the int to the array
 
-    add $s4, $s4, 4
-    add $s1, $s1, 1
-    add $s5, $s5, 1
+    add $s4, $s4, 4  # array counter- moving spacess 4 bits for next input
+    add $s1, $s1, 1  # loop1 counter/ iterator
 
     j loop1   #jump back through loop
 
