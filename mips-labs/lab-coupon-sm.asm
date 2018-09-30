@@ -11,7 +11,7 @@ str0: .asciiz "Please enter the number of item you are purchasing(should be less
 str1: .asciiz "Please enter the price of item "
 str2: .asciiz "Please enter the number of coupons that you want to use.\n"
 str3: .asciiz "Sorry too many items to purchase!! Please enter number of items you are purchasing"
-str4: .asciiz "Too many Coupons!! Please enter the number of coupons that you want to use \n"
+str4: .asciiz "\nCoupons need to be same as items!! Please enter the number of coupons that you want to use:  \n"
 str5: .asciiz "Please enter the amount of coupon"
 str6: .asciiz "Your total charge is: \n$"
 str7: .asciiz "This coupon is not acceptable"
@@ -24,7 +24,7 @@ str12: .asciiz "Price without coupons: $"
 
 main:
 
-askAgain:
+
 li $s0, 0      # initalize to 0
 li $s1, 20     # initalize to 20
 li $s2, 10     # initialize to 10 for coupon
@@ -61,9 +61,25 @@ add $s3, $v0, $0	#sum of prices passed to $s3
  syscall
 
 
-add $a0, $s3, $0 # Dispaly the sum o fprices
+add $a0, $s3, $0 # Dispaly the sum of prices
 li $v0, 1
 syscall
+#--------- Ask For Amount Of Coupon -------
+askAgain:
+
+li $v0, 4
+la $a0, str2  #print out the ask user string
+syscall
+
+li $v0, 5  #get user input
+syscall
+
+add $s4, $v0, $0
+
+bne $s4, 10, error3 #check if coupon the same as prices
+
+ # Jump to coupon subroutine
+jal fillCoupon
 #---------------------------------------------------
 exitProgram:
 
@@ -114,22 +130,29 @@ FillPriceArray:
      #-----------------
      add $v0, $t3, $0 # Store sum in $v0
      jr $ra #jump back to function call in main
-#------------------------
+
+#------------------------------
+# Coupon Subroutine
+#------------------------------
+
+fillCoupon:
+     
+#------------------------------
 # ERROR SECTION
-#------------------------
+#------------------------------
   error1:
     li $v0, 4	#print the string
     la $a0, str9	#Display the question string
     syscall
 
-    j askAgain
+    j main
 #------------------------
   error2:
     li $v0, 4	 #print the string
     la $a0, str3  #Display the question string
     syscall
 
-    j askAgain
+    j main
 
 #------------------------
   error3:
