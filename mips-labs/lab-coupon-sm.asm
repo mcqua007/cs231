@@ -185,7 +185,7 @@ fillCoupon:  add $t0, $a0, $0    # pass the value in $a0/ amount of coupons into
    lw $t7, 0($t5)  #loading the first value in items array and storing into register $t7
 
    #----- Conditional Section ---------
-   bgt $t6, $t4, error4  #comparing user input of coupon to be greater then to
+   bge $t6, $t4, error4  #comparing user input of coupon to be greater then to
    bgt $t6, $t7, error4  #comparing user input to be not greater then items price
 
    sw $t6, 0($t1)  #store the user input that is in register $t6 into the array in $t1

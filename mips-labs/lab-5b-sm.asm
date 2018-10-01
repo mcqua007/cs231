@@ -91,7 +91,6 @@ loop1: beq $s1, $s0, exitLoop1  # loop equal to counter
 
         j loop2
 
-syscall
 
 exitProgram:
 
