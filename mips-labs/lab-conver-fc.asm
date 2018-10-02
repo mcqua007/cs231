@@ -4,7 +4,7 @@
 
 .data
 
-str0: .asciiz " Please input a temperature in Celsius"
+str0: .asciiz " Please input a temperature in Celsius: "
 str1: .asciiz "\n The number in Fahrenheit: "
 str2: .asciiz ""
 str3: .asciiz ""
@@ -34,9 +34,9 @@ cvt.s.w $f1, $f1 #convert to single point float
 l.s $f4, const   # load constant 1.8 into $f4
 l.s $f5, const2  #load constant 32 into $f5
 
-mul.s $f2, $f4 #multiply input by 1.8
+mul.s $f2, $f4, $f1 #multiply input by 1.8
 
-add.s $f3,$f3, $f5  #add product + 32
+add.s $f3,$f2, $f5  #add product + 32
 
 
 #----- Display Final -----
@@ -45,7 +45,7 @@ la $a0, str2            #"The result"
 syscall
 
 li $v0, 2              #display float
-add.s $f12, $f3, $0    #store in v0 and print
+mov.s  $f12, $f3   #store in v0 and print
 syscall
 
 #-------------------------
